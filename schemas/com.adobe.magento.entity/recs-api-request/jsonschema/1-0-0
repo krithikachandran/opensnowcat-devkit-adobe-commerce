@@ -1,0 +1,51 @@
+{
+  "description": "Schema for Recommendations API Request events",
+  "properties": {
+    "instanceId": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "storeId": {
+      "type": "integer"
+    },
+    "storeCode": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "storeViewId": {
+      "type": "integer"
+    },
+    "storeViewCode": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "algorithmName": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "skus": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "limit": {
+      "type": "integer"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "instanceId",
+    "storeId",
+    "storeViewId",
+    "skus"
+  ],
+  "self": {
+    "vendor": "com.adobe.magento.entity",
+    "name": "recs-api-request",
+    "format": "jsonschema",
+    "version": "1-0-0"
+  },
+  "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#"
+}

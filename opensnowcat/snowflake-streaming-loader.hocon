@@ -1,0 +1,43 @@
+# Snowplow Snowflake Streaming Loader configuration
+# Reads enriched events (TSV) from Kafka and writes to Snowflake via Snowpipe Streaming API.
+# Auth: Snowflake key-pair (RSA). Generate with scripts/generate-snowflake-keypair.sh.
+
+license {
+  accept = true
+}
+
+input {
+  topicName = "enriched-good"
+  bootstrapServers = "warp:9092"
+  consumerConf {
+    "group.id" = "snowplow-snowflake-streaming-loader"
+    "auto.offset.reset" = "earliest"
+    "security.protocol" = "PLAINTEXT"
+  }
+}
+
+output {
+  good {
+    url = "https://"${SNOWFLAKE_ACCOUNT}".snowflakecomputing.com"
+    user = ${SNOWFLAKE_USER}
+    role = ${SNOWFLAKE_ROLE}
+    database = ${SNOWFLAKE_DATABASE}
+    schema = ${SNOWFLAKE_SCHEMA}
+    table = "atomic_events"
+    privateKey = ${SNOWFLAKE_PRIVATE_KEY}
+    privateKeyPassphrase = ${?SNOWFLAKE_PRIVATE_KEY_PASSPHRASE}
+  }
+
+  bad {
+    topicName = "snowflake-loader-bad"
+    bootstrapServers = "warp:9092"
+    producerConf {
+      "security.protocol" = "PLAINTEXT"
+    }
+  }
+}
+
+batching {
+  maxBytes = 16000000
+  maxDelay = "1 second"
+}

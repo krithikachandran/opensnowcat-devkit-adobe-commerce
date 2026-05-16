@@ -1,0 +1,7 @@
+I currently use Snowplow BDP at work(Adobe Commerce). This is used to collect raw storefront events from merchant's websites like page-views, product views, adds to cart, place-orders etc. These are collected, validated against some iglu schemas I created and enriched. Then its loaded into a Snowflake warehouse(atomic.events).
+
+This current repo is the OpenSnowcat devkit which is an opensource version of Snowplow. I would like to recreate the setup I have with Snowplow BDP using the devkit here and I need your help for it. I need you to go over this repo first to understand the different components. Then we will work on modifying each component(collector, validator etc) to fit my need. 
+
+Final goal is to have a working product that is able to collect different types of events, validate them against schemas, enrich only the good events with some plugins that I currently enabled in the BDP and load them all into Snowflake. 
+
+Let's first have you review this repo and make a file for yourself to understand the devkit and the final goal. 5

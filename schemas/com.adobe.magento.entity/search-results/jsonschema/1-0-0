@@ -1,0 +1,32 @@
+{
+  "description": "Schema for Search Results Entity",
+  "properties": {
+    "query": {
+      "type": "string"
+    },
+    "results": {
+      "type": "string"
+    },
+    "results-page": {
+      "type": "number"
+    },
+    "results-per-page": {
+      "type": "number"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "query",
+    "results",
+    "results-per-page",
+    "results-page"
+  ],
+  "self": {
+    "vendor": "com.adobe.magento.entity",
+    "name": "search-results",
+    "format": "jsonschema",
+    "version": "1-0-0"
+  },
+  "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#"
+}

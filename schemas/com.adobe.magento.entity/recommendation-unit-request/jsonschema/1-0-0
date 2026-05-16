@@ -1,0 +1,26 @@
+{
+  "description": "Schema for recommendation unit request events",
+  "properties": {
+    "environmentId": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "pageType": {
+      "type": "string",
+      "maxLength": 64
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "environmentId",
+    "pageType"
+  ],
+  "self": {
+    "vendor": "com.adobe.magento.entity",
+    "name": "recommendation-unit-request",
+    "format": "jsonschema",
+    "version": "1-0-0"
+  },
+  "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#"
+}

@@ -1,0 +1,29 @@
+{
+  "repoServer": {
+    "interface": "0.0.0.0"
+    "port": 8080
+    "idleTimeout": 65 seconds
+    "threadPool": "cached"
+    "hsts": {
+      "enable": false
+    }
+  }
+
+  "database": {
+    "type": "postgres"
+    "host": "iglu-postgres"
+    "port": 5432
+    "dbname": "igludb"
+    "username": "iglu"
+    "password": ${IGLU_DB_PASSWORD}
+    "pool": {
+      "type": "hikari"
+      "maximumPoolSize": 5
+      "connectionTimeout": 5000
+    }
+  }
+
+  "debug": false
+  "patchesAllowed": true
+  "superApiKey": ${IGLU_SUPER_API_KEY}
+}

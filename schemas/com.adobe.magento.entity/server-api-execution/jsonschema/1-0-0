@@ -1,0 +1,25 @@
+{
+  "description": "Schema for Server API Execution",
+  "properties": {
+    "requestId": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "executionTime": {
+      "type": "number"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "requestId",
+    "executionTime"
+  ],
+  "self": {
+    "vendor": "com.adobe.magento.entity",
+    "name": "server-api-execution",
+    "format": "jsonschema",
+    "version": "1-0-0"
+  },
+  "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#"
+}

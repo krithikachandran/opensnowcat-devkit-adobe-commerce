@@ -1,0 +1,24 @@
+{
+  "description": "Schema for Experiment Entity",
+  "properties": {
+    "experimentName": {
+      "type": "string"
+    },
+    "variantName": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "experimentName",
+    "variantName"
+  ],
+  "self": {
+    "vendor": "com.adobe.magento.entity",
+    "name": "experiment",
+    "format": "jsonschema",
+    "version": "1-0-0"
+  },
+  "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#"
+}

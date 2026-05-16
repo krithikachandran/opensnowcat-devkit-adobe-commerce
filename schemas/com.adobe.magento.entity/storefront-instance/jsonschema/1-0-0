@@ -1,0 +1,57 @@
+{
+  "description": "Schema for Magento storefront instance",
+  "properties": {
+    "instanceId": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "environment": {
+      "type": "string",
+      "maxLength": 16
+    },
+    "storeUrl": {
+      "type": "string",
+      "maxLength": 2083
+    },
+    "websiteId": {
+      "type": "integer"
+    },
+    "storeId": {
+      "type": "integer"
+    },
+    "storeViewId": {
+      "type": "integer"
+    },
+    "websiteName": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "storeName": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "storeViewName": {
+      "type": "string",
+      "maxLength": 256
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "environment",
+    "storeUrl",
+    "websiteId",
+    "storeId",
+    "storeViewId",
+    "websiteName",
+    "storeName",
+    "storeViewName"
+  ],
+  "self": {
+    "vendor": "com.adobe.magento.entity",
+    "name": "storefront-instance",
+    "format": "jsonschema",
+    "version": "1-0-0"
+  },
+  "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#"
+}

@@ -2,8 +2,19 @@
   "schema": "iglu:com.snowplowanalytics.iglu/resolver-config/jsonschema/1-0-2",
   "data": {
     "cacheSize": 500, 
-    "cacheTtl": 3600,
-    "repositories": [ 
+    "cacheTtl": 60,
+    "repositories": [
+      {
+        "name": "Local Iglu Server",
+        "priority": 1,
+        "vendorPrefixes": [ "com.adobe.magento" ],
+        "connection": {
+          "http": {
+            "uri": "http://iglu-server:8080/api",
+            "apikey": "48b267d7-cd2b-4f22-bae4-0f002f0e2f1e"
+          }
+        }
+      },
       {
         "name": "Iglu Central",
         "priority": 10,

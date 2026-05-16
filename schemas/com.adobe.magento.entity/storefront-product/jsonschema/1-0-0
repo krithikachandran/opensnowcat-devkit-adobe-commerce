@@ -1,0 +1,104 @@
+{
+  "description": "Schema for storefront-product entity (context)",
+  "properties": {
+    "productId": {
+      "type": "number"
+    },
+    "name": {
+      "type": "string"
+    },
+    "sku": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "description": {
+      "type": "string"
+    },
+    "shortDescription": {
+      "type": "string"
+    },
+    "specialPrice": {
+      "type": "number"
+    },
+    "specialFromDate": {
+      "type": "string"
+    },
+    "specialToDate": {
+      "type": "string"
+    },
+    "attributeSetId": {
+      "type": "number"
+    },
+    "metaTitle": {
+      "type": "string"
+    },
+    "metaKeywords": {
+      "type": "string"
+    },
+    "metaDescription": {
+      "type": "string"
+    },
+    "mainImageUrl": {
+      "type": "string"
+    },
+    "newFromDate": {
+      "type": "string"
+    },
+    "newToDate": {
+      "type": "string"
+    },
+    "tierPricing": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "countryOfManufacture": {
+      "type": "string"
+    },
+    "productType": {
+      "type": "string"
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "navigatedCategory": {
+      "type": "string"
+    },
+    "manufacturer": {
+      "type": "string"
+    },
+    "canonicalUrl": {
+      "type": "string"
+    },
+    "price": {
+      "type": "number"
+    },
+    "currencyCode": {
+      "type": "string"
+    },
+    "basePrice": {
+      "type": "number"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "productId",
+    "name",
+    "sku"
+  ],
+  "self": {
+    "vendor": "com.adobe.magento.entity",
+    "name": "storefront-product",
+    "format": "jsonschema",
+    "version": "1-0-0"
+  },
+  "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#"
+}

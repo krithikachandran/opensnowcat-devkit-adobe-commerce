@@ -1,0 +1,38 @@
+{
+  "description": "Schema for Recommendations API Execution events",
+  "properties": {
+    "requestId": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "httpMethod": {
+      "type": "string",
+      "maxLength": 16
+    },
+    "httpStatusCode": {
+      "type": "integer"
+    },
+    "executionTime": {
+      "type": "number"
+    },
+    "hasError": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "requestId",
+    "executionTime",
+    "httpMethod",
+    "httpStatusCode",
+    "hasError"
+  ],
+  "self": {
+    "vendor": "com.adobe.magento.entity",
+    "name": "recs-api-execution",
+    "format": "jsonschema",
+    "version": "1-0-0"
+  },
+  "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#"
+}

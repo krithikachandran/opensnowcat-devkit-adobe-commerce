@@ -1,0 +1,49 @@
+{
+  "description": "Schema for historical aggregated activity tracking on page unload",
+  "properties": {
+    "minXOffset": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "maxXOffset": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "minYOffset": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "maxYOffset": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "pageViewID": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "pings": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": true,
+  "type": "object",
+  "required": [
+    "minXOffset",
+    "maxXOffset",
+    "minYOffset",
+    "maxYOffset",
+    "pings"
+  ],
+  "self": {
+    "vendor": "com.adobe.magento.event",
+    "name": "page_unload",
+    "format": "jsonschema",
+    "version": "1-0-2"
+  },
+  "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#"
+}

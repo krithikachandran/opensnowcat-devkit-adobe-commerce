@@ -1,0 +1,29 @@
+# Compose override that swaps the `warp` broker service to WarpStream's
+# playground agent. Use together with the base file:
+#
+#   docker compose -f docker-compose.yml -f docker-compose.warpstream.yml up -d
+#
+# Everything else (collector, enricher, Iglu Server, Snowflake Streaming
+# Loader, Kafka UI, kafka_proxy) is inherited from docker-compose.yml
+# unchanged.
+#
+# `!override` on `environment` replaces the Kafka-specific KAFKA_* env vars
+# from the base file (which would otherwise be merged in) with only the
+# WarpStream-relevant ones.
+
+services:
+  warp:
+    image: public.ecr.aws/warpstream-labs/warpstream_agent:latest
+    command:
+      - playground
+      - -advertiseHostnameStrategy
+      - custom
+      - -advertiseHostnameCustom
+      - warp
+    environment: !override
+      - WARPSTREAM_DISCOVERY_KAFKA_HOSTNAME_OVERRIDE=warp
+    healthcheck:
+      test: ["CMD", "sh", "-c", "sleep 10"]
+      interval: 5s
+      timeout: 15s
+      retries: 5

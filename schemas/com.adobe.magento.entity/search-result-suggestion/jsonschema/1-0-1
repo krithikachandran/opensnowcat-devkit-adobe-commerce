@@ -1,0 +1,24 @@
+{
+  "description": "Schema for Suggestion Search Results ",
+  "properties": {
+    "suggestion": {
+      "type": "string"
+    },
+    "rank": {
+      "type": "number"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "suggestion",
+    "rank"
+  ],
+  "self": {
+    "vendor": "com.adobe.magento.entity",
+    "name": "search-result-suggestion",
+    "format": "jsonschema",
+    "version": "1-0-1"
+  },
+  "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#"
+}

@@ -1,0 +1,115 @@
+{
+  "description": "Schema for recommended item events",
+  "properties": {
+    "unitId": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "serviceRank": {
+      "type": "integer"
+    },
+    "displayRank": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "sku": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "url": {
+      "type": "string",
+      "maxLength": 2083
+    },
+    "imageUrl": {
+      "type": "string",
+      "maxLength": 2083
+    },
+    "pricing": {
+      "type": "object",
+      "properties": {
+        "regularPrice": {
+          "type": "number"
+        },
+        "minimalPrice": {
+          "type": "number"
+        },
+        "maximalPrice": {
+          "type": "number"
+        },
+        "specialPrice": {
+          "type": "number"
+        },
+        "tierPricing": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "customerGroupId": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "qty": {
+                "type": "number"
+              },
+              "value": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "customerGroupId",
+              "qty",
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "currencyCode": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 3
+        }
+      },
+      "required": [
+        "regularPrice",
+        "minimalPrice",
+        "maximalPrice",
+        "currencyCode"
+      ],
+      "additionalProperties": false
+    },
+    "currencyCode": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 3
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "unitId",
+    "serviceRank",
+    "displayRank",
+    "name",
+    "sku",
+    "url",
+    "imageUrl",
+    "pricing",
+    "currencyCode"
+  ],
+  "self": {
+    "vendor": "com.adobe.magento.entity",
+    "name": "recommended-item",
+    "format": "jsonschema",
+    "version": "1-0-1"
+  },
+  "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#"
+}

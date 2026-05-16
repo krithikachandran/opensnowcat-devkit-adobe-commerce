@@ -1,0 +1,37 @@
+{
+  "description": "Schema for Search Results Item Entity",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "rank": {
+      "type": "number"
+    },
+    "sku": {
+      "type": "string"
+    },
+    "imageUrl": {
+      "type": "string"
+    },
+    "price": {
+      "type": "number"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "title",
+    "url",
+    "rank"
+  ],
+  "self": {
+    "vendor": "com.adobe.magento.entity",
+    "name": "search-result-product",
+    "format": "jsonschema",
+    "version": "1-0-0"
+  },
+  "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#"
+}

@@ -1,3 +1,10 @@
 *.json
 tmp/
 k6/
+.env
+snowflake/snowflake-key.p8
+snowflake/snowflake-key.pub
+opensnowcat/enrichments-data/maxmind/*
+opensnowcat/enrichments-data/iab/*
+opensnowcat/enrichments-data/uap/*
+!opensnowcat/enrichments-data/**/.gitkeep

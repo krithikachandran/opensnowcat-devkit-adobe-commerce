@@ -1,0 +1,28 @@
+{
+  "description": "Schema for Category Search Results",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "rank": {
+      "type": "number"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "name",
+    "url",
+    "rank"
+  ],
+  "self": {
+    "vendor": "com.adobe.magento.entity",
+    "name": "search-result-category",
+    "format": "jsonschema",
+    "version": "1-0-1"
+  },
+  "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#"
+}

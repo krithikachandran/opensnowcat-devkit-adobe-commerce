@@ -15,6 +15,19 @@ Add the line to your /etc/hosts: `127.0.0.1  warp`
 
 Both when running Kafka and Warpstream Kafka UI is available at http://localhost:8081.
 
+## First-time setup
+
+Before the first `make run-*`, create a `.env` file with all required credentials:
+
+```
+make init-env
+```
+
+This copies `.env.example` to `.env` and auto-generates random values for the
+local-only Iglu Server secrets. Open `.env` and fill in the cloud credentials
+(Snowflake, MaxMind, AWS, Snowplow Console) — the containers won't start
+without `IGLU_*` values, and individual features will fail without the rest.
+
 ## Using Kafka
 
 Start the environment with: `make run-kafka`

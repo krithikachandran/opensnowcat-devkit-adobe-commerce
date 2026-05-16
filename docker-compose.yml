@@ -41,9 +41,60 @@ services:
       KAFKA_REPLICA_FETCH_MAX_BYTES: 200000000
       KAFKA_MAX_REQUEST_SIZE: 200000000
 
+  iglu-postgres:
+    container_name: iglu-postgres
+    networks: [ appnet ]
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: igludb
+      POSTGRES_USER: iglu
+      POSTGRES_PASSWORD: ${IGLU_DB_PASSWORD}
+    volumes:
+      - iglu-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U iglu -d igludb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  iglu-setup:
+    container_name: iglu-setup
+    networks: [ appnet ]
+    image: snowplow/iglu-server:0.12.0
+    volumes:
+      - ${PWD}/opensnowcat:/opensnowcat
+    command: 'setup --config /opensnowcat/iglu-server.hocon'
+    depends_on:
+      iglu-postgres:
+        condition: service_healthy
+    environment:
+      ACCEPT_LIMITED_USE_LICENSE: "yes"
+      IGLU_SUPER_API_KEY: ${IGLU_SUPER_API_KEY}
+      IGLU_DB_PASSWORD: ${IGLU_DB_PASSWORD}
+
+  iglu-server:
+    container_name: iglu-server
+    networks: [ appnet ]
+    image: snowplow/iglu-server:0.12.0
+    volumes:
+      - ${PWD}/opensnowcat:/opensnowcat
+    command: '--config /opensnowcat/iglu-server.hocon'
+    restart: on-failure
+    depends_on:
+      iglu-postgres:
+        condition: service_healthy
+      iglu-setup:
+        condition: service_completed_successfully
+    ports:
+      - "8181:8080"
+    environment:
+      ACCEPT_LIMITED_USE_LICENSE: "yes"
+      IGLU_SUPER_API_KEY: ${IGLU_SUPER_API_KEY}
+      IGLU_DB_PASSWORD: ${IGLU_DB_PASSWORD}
+
   opensnowcat_collector:
     container_name: opensnowcat_collector
-    networks: [ appnet ]  
+    networks: [ appnet ]
     image: opensnowcat/opensnowcat-collector-kafka:latest
     volumes:
       - ${PWD}/opensnowcat:/opensnowcat
@@ -52,13 +103,13 @@ services:
     depends_on:
       - warp
     ports:
-      - "8080:8080"      
+      - "8080:8080"
     environment:
       LOG_LEVEL: "INFO"
-      
+
   opensnowcat_enrich:
     container_name: opensnowcat_enrich
-    networks: [ appnet ]  
+    networks: [ appnet ]
     image: opensnowcat/opensnowcat-enrich-kafka:latest
     volumes:
       - ${PWD}/opensnowcat:/opensnowcat
@@ -66,8 +117,12 @@ services:
     restart: on-failure
     depends_on:
       - warp
+      - iglu-server
     environment:
-      LOG_LEVEL: "INFO"
+      LOG_LEVEL: "DEBUG"
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-}
+      AWS_REGION: ${AWS_REGION:-us-east-1}
 
   kafka-ui:
     container_name: kafka-ui
@@ -94,16 +149,32 @@ services:
     depends_on:
       - warp
 
-  bento:
-    container_name: bento
+  snowflake-loader:
+    container_name: snowflake-loader
     networks: [ appnet ]
-    image: ghcr.io/warpstreamlabs/bento:latest
+    image: snowplow/snowflake-loader-kafka:0.5.1
     volumes:
-      - ./bento:/configs
-    command: '-c /configs/tsv-json.yml'
+      - ${PWD}/opensnowcat:/opensnowcat
+      - ${SNOWFLAKE_PRIVATE_KEY_PATH:-./snowflake/snowflake-key.p8}:/secrets/snowflake-key.p8:ro
+    entrypoint:
+      - /bin/sh
+      - -c
+      - 'export SNOWFLAKE_PRIVATE_KEY="$$(cat /secrets/snowflake-key.p8)"; [ -z "$$SNOWFLAKE_PRIVATE_KEY_PASSPHRASE" ] && unset SNOWFLAKE_PRIVATE_KEY_PASSPHRASE; exec /home/snowplow/bin/snowflake-loader-kafka "$$@"'
+      - --
+    command: '--config /opensnowcat/snowflake-streaming-loader.hocon'
     restart: on-failure
     depends_on:
       - warp
       - opensnowcat_enrich
     environment:
-      LOG_LEVEL: "DEBUG"
+      ACCEPT_LIMITED_USE_LICENSE: "yes"
+      SNOWFLAKE_ACCOUNT: ${SNOWFLAKE_ACCOUNT}
+      SNOWFLAKE_USER: ${SNOWFLAKE_USER}
+      SNOWFLAKE_ROLE: ${SNOWFLAKE_ROLE}
+      SNOWFLAKE_DATABASE: ${SNOWFLAKE_DATABASE}
+      SNOWFLAKE_SCHEMA: ${SNOWFLAKE_SCHEMA}
+      SNOWFLAKE_PRIVATE_KEY_PASSPHRASE: ${SNOWFLAKE_PRIVATE_KEY_PASSPHRASE:-}
+      LOG_LEVEL: "INFO"
+
+volumes:
+  iglu-pgdata:

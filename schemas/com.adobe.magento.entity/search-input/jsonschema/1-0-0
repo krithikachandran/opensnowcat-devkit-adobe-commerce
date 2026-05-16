@@ -1,0 +1,45 @@
+{
+  "description": "Schema for Search Input Entity",
+  "properties": {
+    "searchType": {
+      "type": "string"
+    },
+    "query": {
+      "type": "string"
+    },
+    "pageNum": {
+      "type": "number"
+    },
+    "perPage": {
+      "type": "number"
+    },
+    "refinementAttribute": {
+      "type": "string"
+    },
+    "refinementSelection": {
+      "type": "string"
+    },
+    "sortType": {
+      "type": "string"
+    },
+    "sortOrder": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "query",
+    "perPage",
+    "pageNum",
+    "sortType",
+    "sortOrder"
+  ],
+  "self": {
+    "vendor": "com.adobe.magento.entity",
+    "name": "search-input",
+    "format": "jsonschema",
+    "version": "1-0-0"
+  },
+  "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#"
+}
